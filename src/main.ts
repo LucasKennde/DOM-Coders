@@ -1,41 +1,44 @@
-import './style.css'
-
-const button = document.querySelector<HTMLButtonElement>('#button')
-const nome = document.querySelector<HTMLInputElement>('#nome')
-const email = document.querySelector<HTMLInputElement>('#email')
-const idade = document.querySelector<HTMLInputElement>('#idade')
-const password = document.querySelector<HTMLInputElement>('#password')
+import "./style.css"
+const formulario = document.querySelector<HTMLFormElement>('#formulario')
+const resultado: any = document.querySelector<HTMLDivElement>('.resultado')
+const inputTarefas = document.querySelector<HTMLInputElement>('#inputTarefas')
+let tarefas: string[] = JSON.parse(localStorage.getItem('tarefas') || '[]');
 
 
-if (button) {
-  button.addEventListener('click', () => {
-    if (nome && email && idade && password) {
-      if (!nome.value || !email.value || !idade.value || !password.value) {
-        alert('Preencha todos os campos')
-        return
-      }
-      if (!email.value.includes('@') || !email.value.split('@')[1].includes('.')) {
-        alert('Email não confere')
-        return
-      }
-      if (isNaN(Number(idade.value)) && Number(idade.value) > 0) {
-        alert('Idade deve ser um número e ser maior que zero')
-        return
-      }
-      if (password.value.length < 8) {
-        alert('Senha deve ter pelo menos 8 caracteres')
-        return
-      }
-      alert('Cadastro realizado com sucesso!')
-      const user = {
-        nome: nome.value,
-        email: email.value,
-        idade: idade.value,
-        password: password.value
-      }
-      console.log(user)
-    }
+
+function mostrarResultado() {
+  resultado.innerHTML = ''
+  tarefas.forEach((tarefa: string, index: number) => {
+    const li = document.createElement('li')
+    li.textContent = tarefa
+    const botaoExcluir = document.createElement('button')
+    botaoExcluir.textContent = 'Excluir'
+    botaoExcluir.addEventListener('click', () => {
+      removerTarefa(index)
+    })
+    li.appendChild(botaoExcluir)
+    resultado.appendChild(li)
   })
 }
 
 
+function removerTarefa(index: number) {
+  tarefas.splice(index, 1)
+  localStorage.setItem('tarefas', JSON.stringify(tarefas))
+  mostrarResultado()
+}
+
+
+if (formulario && inputTarefas) {
+
+  formulario.addEventListener('submit', (e) => {
+    e.preventDefault()
+    tarefas.push(inputTarefas.value)
+    localStorage.setItem('tarefas', JSON.stringify(tarefas))
+    console.log(tarefas)
+    mostrarResultado()
+    formulario.reset()
+  })
+}
+
+mostrarResultado()
