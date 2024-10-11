@@ -4,20 +4,34 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>To-do List</title>
   </head>
   <body>
-    <div>
+    <div id="app"></div>
+    <header class="wrapper">
+      <div class="container header">
+        <h1 id="usuario">Bem vindo, Lucas</h1>
+        <h4 id="data">Segunda, 01 de dezembro de 2025</h4>
+      </div>
+    </header>
+    <main class="wrapper">
+      <div class="container main">
+        <h1>Gerenciador de Tarefas</h1>
+        <form id="formulario">
 
-      <h1>Preencha o formulario
-      </h1>
-      
-      <input type="text" name="nome" id="nome" placeholder="Digite o seu nome">
-      <input type="text" name="email" id="email" placeholder="Digite o seu email">
-      <input type="number" name="idade" id="idade" placeholder="Digite a sua idade">
-      <input type="password" name="password" id="password" placeholder="Digite sua senha">
-      <button id="button">Enviar</button>
-    </div>
+          <input type="text" id="inputTarefas" placeholder="Digite uma tarefa">
+          <button class="btn btn-primary">Enviar</button>
+
+        </form>
+        <section id="tarefas">
+          <h1>Tarefas</h1>
+          <ul class="resultado">
+
+          </ul>
+        </section>
+      </div>
+
+    </main>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
